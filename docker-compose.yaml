@@ -1,0 +1,16 @@
+services:
+  ocrd-llm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOCKER_BASE_IMAGE: ocrd/core:latest
+        VCS_REF: ${VCS_REF:-main}
+        BUILD_DATE: ${BUILD_DATE:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}
+    image: ocrd/llm
+    container_name: ocrd-llm
+    volumes:
+      - ./data:/data
+    command: /bin/bash
+    stdin_open: true
+    tty: true

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel", "setuptools-ocrd"]
+
+[project]
+name = "ocrd_llm"
+authors = [
+    {name = "Constantin Lehenmeier", email = "constantin.lehenmeier@ur.de"}
+]
+description = "Use open models via Academic Cloud within the OCR-D framework"
+readme = "README.md"
+license-files = [
+    "LICENSE",
+]
+requires-python = ">=3.8"
+keywords = ["ocr", "ocr-d", "llm"]
+
+dynamic = ["version", "dependencies", "optional-dependencies"]
+
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Other Audience",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Text Processing",
+]
+
+[project.scripts]
+ocrd-llm = "ocrd_llm.cli:ocrd_llm"
+
+[project.urls]
+Homepage = "https://github.com/CrazyCrud/ocrd_llm"
+Repository = "https://github.com/CrazyCrud/ocrd_llm.git"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools]
+packages = ["ocrd_llm"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+ocrd_llm = ["*.json", "ocrd-tool.json"]
