@@ -59,7 +59,7 @@ class OcrdLLM(Processor):
         Main function.
         """
 
-        # Create output document from the lines PageXML document.
+        # Create output document from the input PageXML document.
         out_doc = lines_doc
         out_page = out_doc.get_Page()
 
@@ -84,7 +84,7 @@ class OcrdLLM(Processor):
 
             for line in lines:
                 try:
-                    # Extract TextLine from the parent TextRegion
+                    # Extract TextLine from the parent TextRegion.
                     print(f"Crop TextLine {line.id}")
                     line_image, _ = self.workspace.image_from_segment(
                         line, text_region_image, text_region_coords
