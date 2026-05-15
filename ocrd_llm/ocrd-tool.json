@@ -22,10 +22,21 @@
           "description": "OpenAI compatible API endpoint",
           "type": "string"
         },
+        "temperature": {
+          "description": "Temperature parameter of the model",
+          "type": "number",
+          "format": "float",
+          "default": 0.7
+        },
         "prompt_txt_file": {
           "description": "Text file containing a prompt used for the specific model",
           "type": "string",
           "default": "prompt.txt"
+        },
+        "use_context": {
+          "description": "Use containing TextRegion elements additionally to TextLine elements",
+          "type": "boolean", 
+          "default": false
         }
       }
     }

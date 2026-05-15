@@ -23,6 +23,9 @@ class OcrdLLM(Processor):
         self.model_id = self.params['model_id']
         self.api_key = self.params['api_key']
         self.api_endpoint = self.params['api_endpoint']
+        self.temperature = self.params['temperature']
+        print(f"Temperature is {self.temperature}")
+        self.use_context = self.params['use_context']
 
         self.client = OpenAI(api_key=self.api_key, base_url=self.api_endpoint)
 
@@ -111,34 +114,39 @@ class OcrdLLM(Processor):
 
         generated_text = ""
 
-        # TODO: Set temperature via ocrd-tool.json
+        message = {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": self.prompt
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": base64_textline_image
+                            },
+                        }
+                    ],
+                }
+        if (self.use_context):
+            print(f"Use context and add TextRegion")
+            message["content"].append({
+                "type": "image_url",
+                "image_url": {
+                    "url": base64_textregion_image
+                },
+            })
+        else:
+            print(f"Don't use context, just provide TextLine")
+
         try:
             response = self.client.chat.completions.create(
                 model=self.model_id,
                 messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": self.prompt
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": base64_textline_image
-                                },
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": base64_textregion_image
-                                },
-                            },
-                        ],
-                    }
+                    message
                 ],
-                temperature=0.7
+                temperature=self.temperature
             )
             generated_text = response.choices[0].message.content.strip()
         except Exception as e:

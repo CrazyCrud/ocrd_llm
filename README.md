@@ -1,6 +1,6 @@
 # OCR-D extension to recognize text using open models via OpenAI interface 
 
-> ocrd_llm is an OCR‑D module that tries to recognize text using open models via OpenAI interface. Currently tested with Acedemic Cloud.
+> ocrd_llm is an OCR‑D module that tries to recognize text using open models via OpenAI interface. Currently tested with Academic Cloud.
        
 _Disclaimer_: Work in progeress (maybe implement layout recognition in the future, too)
 
